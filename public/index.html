@@ -121,7 +121,68 @@
     <body>
       <body>
         <h1>Home Automation Dashboard</h1>
-        <div id="KPI-header" class="KPIs">
+         <!-- Create a container element to hold the cards -->
+  <div id="container" style="display: flex; flex-wrap: wrap;">
+
+  </div>
+
+  <!-- Initialize Firebase and get a reference to the database -->
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyD-8hZ6i9nHs4kLJdQHlW5GJL9uRQvK6yc",
+      authDomain: "lemonbarski.firebaseapp.com",
+      databaseURL: "https://lemonbarski-rtdb.firebaseio.com",
+      projectId: "lemonbarski",
+      storageBucket: "lemonbarski.appspot.com",
+      messagingSenderId: "10987654321",
+      appId: "1:10987654321:web:abcdef123456"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the database
+    var database = firebase.database();
+
+    // Get a reference to the user's status node
+    var statusRef = database.ref("Users/Lemonbarski/Status");
+
+    // Listen for changes in the data
+    statusRef.on("value", function(snapshot) {
+      // Get the data from the snapshot
+      var data = snapshot.val();
+
+      // Get the container element
+      var container = document.getElementById("container");
+
+      // Clear the container element
+      container.innerHTML = "";
+
+      // Loop through each key in data
+      for (var key in data) {
+        // Create a div element with class "card"
+        var card = document.createElement("div");
+        card.className = "card";
+        card.style = "width: 200px; height: 150px; border: 1px solid black; margin: 10px; padding: 10px;";
+
+        // Create an h2 element with the key as content
+        var h2 = document.createElement("h2");
+        h2.innerHTML = key;
+
+        // Create a p element with the value as content
+        var p = document.createElement("p");
+        p.innerHTML = data[key];
+
+        // Append the h2 and p elements to the card element
+        card.appendChild(h2);
+        card.appendChild(p);
+
+        // Append the card element to the container element
+        container.appendChild(card);
+      }
+    });
+  </script>
+  <div id="KPI-header" class="KPIs">
           <div id="last-activity-room" class="card KPI-card">
             <H2 class="KPI-heading">Last Activity Room: </H2>
           </div>
