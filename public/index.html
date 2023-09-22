@@ -126,32 +126,6 @@
 
   </div>
 
-  <!-- Initialize Firebase and get a reference to the database -->
-  <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-      apiKey: "AIzaSyD-8hZ6i9nHs4kLJdQHlW5GJL9uRQvK6yc",
-      authDomain: "lemonbarski.firebaseapp.com",
-      databaseURL: "https://lemonbarski-rtdb.firebaseio.com",
-      projectId: "lemonbarski",
-      storageBucket: "lemonbarski.appspot.com",
-      messagingSenderId: "10987654321",
-      appId: "1:10987654321:web:abcdef123456"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    // Get a reference to the database
-    var database = firebase.database();
-
-    // Get a reference to the user's status node
-    var statusRef = database.ref("Users/Lemonbarski/Status");
-
-    // Listen for changes in the data
-    statusRef.on("value", function(snapshot) {
-      // Get the data from the snapshot
-      var data = snapshot.val();
-
       // Get the container element
       var container = document.getElementById("container");
 
