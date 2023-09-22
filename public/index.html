@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lemonbarski Home App</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/10.4.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-auth-compat.js"></script> -->
+    <script defer src="/__/firebase/10.4.0/firebase-database-compat.js"></script>
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-firestore-compat.js"></script> -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-functions-compat.js"></script> -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-messaging-compat.js"></script> -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-storage-compat.js"></script> -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-analytics-compat.js"></script> -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-remote-config-compat.js"></script> -->
+    <!-- <script defer src="/__/firebase/10.4.0/firebase-performance-compat.js"></script> -->
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=false"></script>
+    <script>
+      // Access data from the Firebase Realtime Database
+      const database = firebase.database();
+      const ref = database.ref("Users/Lemonbarski");
+  
+      // Retrieve data from the database
+      ref.on("value", (snapshot) => {
+        const data = snapshot.val();
+        // Use the data to update the cards in the dashboard
+        // ...
+      });
+    </script>
+    <head>
+      <title>Lemonbarski Home App | Dashboard</title>
+      <style>
+        body {
+          background-color: #f4f2f2;
+    
+        .card {
+          margin: 10px;
+          border-radius: 1;
+          background-color: #333333;
+          padding-top: 3px;
+          padding-left: 3px;
+        }
+    
+        .icon {
+          color: #ffffff;
+        }
+    
+        .light-card {
+          background-color: #444444;
+        }
+    
+        .door-sensor-card {
+          background-color: #555555;
+        }
+    
+        .temperature-card {
+          background-color: #666666;
+        }
+    
+        .light-level-card {
+          background-color: #777777;
+        }
+    
+        .gmail-card {
+          background-color: #999999;
+        }
+    
+        .outlook-card {
+          background-color: #aaaaaa;
+        }
+    
+        .google-calendar-card {
+          background-color: #bbbbbb;
+        }
+    
+        .google-contacts-card {
+          background-color: #cccccc;
+        }
+    
+        .google-domains-card {
+          background-color: #dddddd;
+        }
+    
+        .google-news-card {
+          background-color: #eeeeee;
+        }
+    
+        .weather-card {
+          background-color: #fafafa;
+        }
+
+        .KPIs {
+          display: flex;
+        }
+
+        .last-activity-KPIs {
+          -ms-grid-row-align: start;
+        }
+
+        .KPI-card {
+          flex-direction: row;
+          background-color: #ff5e00;
+          width: 10%;
+          min-height: 75px;
+          max-height: 150%;
+          box-shadow: 3px 3px #282828;
+        }
+        .stock-market-card {
+          background-color: #fcfcfc;
+        }
+      }
+      </style>
+    </head>
+    <body>
+      <body>
+        <h1>Home Automation Dashboard</h1>
+        <div id="KPI-header" class="KPIs">
+          <div id="last-activity-room" class="card KPI-card">
+            <H2 class="KPI-heading">Last Activity Room: </H2>
+          </div>
+          <div id="last-activity-time" class="card KPI-card">
+            <h2 class="KPI-heading">TIME</h2>
+          </div>    
+          <div id="last-activity" class="card KPI-card">
+            <H3 class="cards KPI-heading">Last Activity: </H3>
+          </div>
+        </div>
+        <div id="rooms-carousel" class="carousel">
+          <!-- Rooms card carousel -->
+          <!-- Add your rooms cards here -->
+        </div>
+        <div id="home-carousel" class="carousel">
+          <!-- Home card carousel -->
+          <!-- Add your home cards here -->
+        </div>
+        <div id="lights-carousel" class="carousel">
+          <!-- Lights card carousel --> 
+          <div class="card light-card">
+            <i class="icon fas fa-lightbulb"></i>
+            <h2>Lights</h2>
+            <p>The current status of your lights.</p>
+          </div>
+          <!-- Add your lights cards here -->
+        </div>
+        <div id="messages-carousel" class="carousel">
+          <!-- Messages card carousel -->
+          <!-- Add your messages cards here -->
+        </div>
+        <div id="tasks-carousel" class="carousel">
+          <!-- Tasks card carousel -->
+          <!-- Add your tasks cards here -->
+        </div>
+        <div id="events-carousel" class="carousel">
+          <!-- Events card carousel -->
+          <div class="card google-calendar-card">
+            <i class="icon fas fa-calendar"></i>
+            <h2>Google Calendar</h2>
+            <p>Your upcoming events.</p>
+          </div>
+          <!-- Add your events cards here -->
+        </div>
+        <div id="emails-carousel" class="carousel">
+          <!-- Emails card carousel -->
+          <div class="card gmail-card">
+            <i class="icon fas fa-envelope"></i>
+            <h2>Gmail</h2>
+            <p>Your latest emails.</p>
+          </div>
+          <div class="card outlook-card">
+            <i class="icon fas fa-at"></i>
+            <h2>Outlook</h2>
+            <p>Your latest emails.</p>
+          </div>
+            <!-- Add your emails cards here -->
+        </div>
+        <div id="cards"></div>
+        <script>
+            // Get a reference to the database service
+            var db = firebase.database();
+    
+            // Get a reference to the "Status" object in the database
+            var statusRef = db.ref('Users/Lemonbarski/Status');
+
+            // Get a reference to the "Status" object in the database
+            var weatherRef = db.ref('Users/Lemonbarski/Weather');
+            
+            // Get a reference to the "Status" object in the database
+            var locationRef = db.ref('Users/Lemonbarski/Location');
+
+            // Listen for changes to the "Status" object
+            statusRef.on('value', function(snapshot) {
+                // Get the updated data
+                var data = snapshot.val();
+    
+                // Get a reference to the "cards" div
+                var cardsDiv = document.getElementById('cards');
+    
+                // Clear the current cards
+                cardsDiv.innerHTML = '';
+    
+                // Loop through the data and create a new card for each item
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        // Create a new div for the card
+                        var cardDiv = document.createElement('div');
+    
+                        // Set the text of the card div to the data
+                        cardDiv.textContent = data[key];
+    
+                        // Add the card div to the cards div
+                        cardsDiv.appendChild(cardDiv);
+                    }
+                }
+            });
+        </script>
+      </body>
+      <!-- Carousel Card Extras -->
+      <!--
+        <div class="card door-sensor-card">
+          <i class="icon fas fa-door-open"></i>
+          <h2>Door Sensors</h2>
+          <p>The current status of your door sensors.</p>
+        </div>
+        <div class="card temperature-card">
+          <i class="icon fas fa-thermometer-half"></i>
+          <h2>Temperature</h2>
+          <p>The current temperature inside and outside your home.</p>
+        </div>
+        <div class="card light-level-card">
+          <i class="icon fas fa-sun"></i>
+          <h2>Light Level</h2>
+          <p>The current light level inside and outside your home.</p>
+        </div>
+        <div class="card fitbit-card">
+          <i class="icon fas fa-heartbeat"></i>
+          <h2>Fitbit</h2>
+          <p>Your current heart rate, steps taken, and calories burned.</p>
+        </div>
+      -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const loadEl = document.querySelector('#load');
+          // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+          // // The Firebase SDK is initialized and available here!
+          //
+          // firebase.auth().onAuthStateChanged(user => { });
+          firebase.database().ref('/Users/Lemonbarski/Status/').on('value', snapshot => { });
+          // firebase.firestore().doc('/foo/bar').get().then(() => { });
+          // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+          // firebase.messaging().requestPermission().then(() => { });
+          // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+          // firebase.analytics(); // call to activate
+          // firebase.analytics().logEvent('tutorial_completed');
+          // firebase.performance(); // call to activate
+          //
+          // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+          try {
+            let app = firebase.app();
+            let features = [
+              'auth', 
+              'database', 
+              'firestore',
+              'functions',
+              'messaging', 
+              'storage', 
+              'analytics', 
+              'remoteConfig',
+              'performance',
+            ].filter(feature => typeof app[feature] === 'function');
+            loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+          } catch (e) {
+            console.error(e);
+            loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+          }
+        });
+      </script>
+  </body>
+</html>
